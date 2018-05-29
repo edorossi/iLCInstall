@@ -94,7 +94,7 @@ class ROOT(BaseILC):
             tryunlink( "CMakeCache.txt" )
 
         self.envcmake['CMAKE_INSTALL_PREFIX']=self.installPath
-        #self.envcmake['PYTHON_EXECUTABLE']="/afs/desy.de/products/python/.amd64_rhel60/2.7/bin/python"
+        self.envcmake['PYTHON_EXECUTABLE']="/afs/desy.de/products/python/.amd64_rhel60/2.7/bin/python"
 
         self.envcmake['GSL_CONFIG_EXECUTABLE']=gsl_bindir+'/gsl-config'
 
