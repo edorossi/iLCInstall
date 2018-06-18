@@ -23,19 +23,14 @@ class Eutelescope(MarlinPKG):
         MarlinPKG.__init__(self, "Eutelescope", myversion )
 
         # required modules
-        self.reqmodules = [ "Marlin",  "LCIO" ]
+        self.reqmodules = [ "Marlin", "LCIO", "Eigen", "GEAR", "AIDA", "ROOT", "GBL" ]
 
         # optional modules
-        self.optmodules = [ "GEAR", "AIDA" , "MarlinUtil", "CLHEP", "GSL", "CED", "ROOT", "GBL" ]
+        self.optmodules = [ "CLHEP", "GSL", "CED" ]
         
-        # set download url with full path
-        #self.download.svnurl = 'https://github.com/eutelescope/eutelescope/'+userInput
-
         self.download.supportedTypes = [ "GitHub" ] 
         self.download.gituser = 'eutelescope'
         self.download.gitrepo = 'eutelescope'
-
-
 
     def compile(self):
         if self.env.get( "MILLEPEDEII_VERSION", "" ):
@@ -48,11 +43,10 @@ class Eutelescope(MarlinPKG):
                 self.abort( "failed to build MILLEPEDE2!" )
 
 
-
 	""" compile Eutelescope """
         # ----- DOWNLOAD EXTERNAL DEPENDENCIES ----------------------------
-        os.system( "sh "+self.installPath+"/tools/install-externals/install-externals.sh "
-                   + self.installPath+"/external" )
+        # os.system( "sh "+self.installPath+"/tools/install-externals/install-externals.sh "
+        #           + self.installPath+"/external" )
 
         # ----- BUILD EUTELESCOPE ----------------------------
         os.chdir( self.installPath+"/build" )
