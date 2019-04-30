@@ -4,7 +4,7 @@ import logging
 import commands
 from ilcsoft import *
 
-_version = "v01-17-07"
+_version = "v01-19-02"
 
 _usage = """%prog [options] INSTALL_CONFIG_FILE
 if called with no options only an installation summary is shown
@@ -38,48 +38,14 @@ if options.verbose:
     # set the logging level
     ch.setLevel( logging.DEBUG )
 
-
 config_file = os.path.abspath(args[0])
    
 if( not os.path.exists(config_file) ):
     parser.error( 'config file %s does not exist' % config_file )
 
 # some settings needed for reading nightly build cfg files
-date_iso8601 = commands.getoutput( "date +%F" )
 config_file_basename = config_file[config_file.rfind( '/' )+1:config_file.rfind(".")]
 config_file_extension = config_file[config_file.rfind(".")+1:]
-
-# desy afs directories
-ilcsoft_afs_path={}
-ilcsoft_afs_path['base']  = '/afs/desy.de/project/ilcsoft/sw'
-ilcsoft_afs_path['gcc34_32bit'] = os.path.normpath( os.path.join( ilcsoft_afs_path['base'] , 'i386_gcc34_sl4'   ))
-ilcsoft_afs_path['gcc41_32bit'] = os.path.normpath( os.path.join( ilcsoft_afs_path['base'] , 'i386_gcc41_sl5' ))
-ilcsoft_afs_path['gcc41_64bit'] = os.path.normpath( os.path.join( ilcsoft_afs_path['base'] , 'x86_64_gcc41_sl5' ))
-ilcsoft_afs_path['gcc44_64bit'] = os.path.normpath( os.path.join( ilcsoft_afs_path['base'] , 'x86_64_gcc44_sl6' ))
-ilcsoft_afs_path['gcc48_64bit'] = os.path.normpath( os.path.join( ilcsoft_afs_path['base'] , 'x86_64_gcc48_sl6' ))
-ilcsoft_afs_path['gcc49_64bit'] = os.path.normpath( os.path.join( ilcsoft_afs_path['base'] , 'x86_64_gcc49_sl6' ))
-ilcsoft_afs_path['gcc46_64bit'] = os.path.normpath( os.path.join( ilcsoft_afs_path['base'] , 'x86_64_gcc46_ub1204' ))
-ilcsoft_afs_path['gcc48_64bit_ub1404'] = os.path.normpath( os.path.join( ilcsoft_afs_path['base'] , 'x86_64_gcc48_ub1404' ))
-
-ilcPath = None
-try:
-    import platform
-    sizeofint = platform.architecture()[0]
-    gccver = ''.join( platform.python_compiler().split()[-1].split('.')[:2] )
-    arch = 'gcc' + gccver + '_' + sizeofint
-    platf = platform.platform()
-    if( platf.find("trusty")>0):
-        arch += "_ub1404"
-    ilcPath = ilcsoft_afs_path[ arch ] + '/'
-    gcccheck = platform.python_compiler()
-    print gcccheck
-    print ilcPath
-    print arch
-    print gccver
-except:
-    pass
-
-nightlies = False
 
 print '+ Running ilcsoft-install [ %s ]' % _version
 print '+ Read configuration file [ %s ]' % config_file
@@ -90,11 +56,8 @@ ilcsoft.config_file = config_file
 ilcsoft.config_file_prefix = config_file_basename
 ilcsoft.config_file_suffix = config_file_extension
 
-
 # this is for initializing the modules
-# (called right after reading the config file)
 ilcsoft.init()
-
 
 # display an installation summary
 ilcsoft.summary()
@@ -105,11 +68,9 @@ if options.preview :
 if options.install :
     ilcsoft.makeinstall()
 
-
 print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
 
 if options.dependencies :
    ilcsoft.showDependencies()
-
 
 print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
