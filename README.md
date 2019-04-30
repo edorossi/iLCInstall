@@ -1,15 +1,13 @@
 # iLCInstall
 
-Installation script that enable a fully automated installation of iLCSoft with minimal user intervention.
+Installation script that enable a fully automated installation of EUTelescope and its dependencies, based on the installation of iLCSoft.
 
 iLCInstall is distributed under the [GPLv3 License](http://www.gnu.org/licenses/gpl-3.0.en.html)
 
 [![License](https://www.gnu.org/graphics/gplv3-127x51.png)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
-[![Build Status](https://travis-ci.org/ilcsoft/iLCInstall.svg?branch=master)](https://travis-ci.org/ilcsoft/iLCInstall)
-[![Coverage Status](https://coveralls.io/repos/github/iLCSoft/iLCInstall/badge.svg?branch=master)](https://coveralls.io/github/iLCSoft/iLCInstall?branch=master)
 
-## Usage
+## General Usage
 
 The script can be called with the following syntax:
 ```
@@ -22,73 +20,17 @@ options description:
 If called without options a summary of the installation is displayed. Examples of configuration files can be found under releases.
 
 
+## Usage for EUTelescope:
 
-## Usage Examples:
+* prerequisites: boost, mysql, java and cernlib installations are not supported in ilcinstall, these packages need to be available on the system, 
+* paths can be changed in releases/release-versions.py
 
-
-
-### Install the full ilc software tools + external dependencies on your local disk 
-
-* note that boost, mysql, java and cernlib installations are not supported in ilcinstall
-*  this packages need to be installed on your system. Please change the paths to this packages in
-* the file releases/v01-17-07/release-versions.py
-
-* for debian/ubuntu distributions you may need to install a few packages beforehand such as:
+* for debian/ubuntu distributions you may need to install a few packages beforehand such as (TO BE CHECKED):
 * apt-get install build-essential cmake subversion libmysqlclient-dev freeglut3-dev zlib1g-dev libqt4-dev cernlib-core-dev 
 * default-jdk libxpm-dev libxmu-dev lesstif2-dev doxygen latex2html
 
+STEPS TO FOLLOW...
 
-### Step 1:  install the external packages  (geant4, root, GSL,....)
-you can skip this step, if you want to use external tools from afs or cvmfs - see below
-
-**NB: you have to use a compiler that is compatible w/ c++11**
-for SL6 you can use gcc4.8 provided by CERN SFT
-see comment in release-versions.py on how to set this up 
-```
-ilcsoft_install_prefix = "/scratch/ilcsoft/"    
-```
-note: no version suffix is added to this path here as the external tools are rather independent of the ilcsoft version
-
-possibly edit releases/v01-17-07/release-base.cfg and comment out any unneeded packages:
-* e.g. those that are already installed on your system no need to comment out packages that are already installed in the correct place, ilcinstall will simply use them
-
-run:
-```
-./ilcsoft-install releases/v01-17-07/release-base.cfg [-p]
-```
-check the output carefully w.r.t. to paths used, then install:
-```
-./ilcsoft-install releases/v01-17-07/release-base.cfg -i       
-```
-
-### Step 2:  install the actual ilcsoft release   
-
-* no need to edit `releases/v01-17-07/release-versions.py` 
-* assuming you have set `ilcsoft_install_prefix` already in Step 1
-* Note: the release version will be automatically appended to the install path !
-
-
-* if you have skipped Step 0 and want to use the external tools installed in afs or cvmfs:
-
-* set the ilcPath accordingly (see below for pathes), e.g:
-```
-ilcPath = '/afs/desy.de/project/ilcsoft/sw/x86_64_gcc44_sl6
-```
-or
-```
-ilcPath = '/cvmfs/ilc.desy.de/sw/x86_64_gcc48_sl6
-```
-
-can be set to any other directory that contains all the needed external tools
-
-* possibly edit releases/v01-17-07/release-ilcsoft.cfg and comment out any unneeded packages. Run:
-```
-./ilcsoft-install releases/v01-17-07/release-ilcsoft.cfg [-p]
-```
-check the output carefully w.r.t. to pathes used, then install:
-```
-./ilcsoft-install releases/v01-17-07/release-ilcsoft.cfg -i
-```
 
 ## License and Copyright
 Copyright (C), iLCInstall Authors
