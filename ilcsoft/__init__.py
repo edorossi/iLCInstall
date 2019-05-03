@@ -15,7 +15,7 @@ from gear import GEAR
 from raida import RAIDA
 #from ced import CED
 #from kaltest import KalTest, KalDet
-from pathfinder import PathFinder
+#from pathfinder import PathFinder
 #from bbq import BBQ
 from gbl import GBL
 
@@ -33,7 +33,7 @@ from marlinreco import MarlinReco
 #from pandoranew import MarlinPandora
 #from lcfivertex import LCFIVertex
 from eutelescope import Eutelescope
-from overlay import Overlay
+#from overlay import Overlay
 #from marlintpc import MarlinTPC
 #from ckfit import CKFit
 #from fastjet import FastJet, FastJetClustering
@@ -67,25 +67,25 @@ from cmake import CMake
 #from druid import Druid
 #from garlic import Garlic
 #from mokka import Mokka
-from conddbmysql import CondDBMySQL
-from cernlib import CERNLIB
+#from conddbmysql import CondDBMySQL
+#from cernlib import CERNLIB
 from clhep import CLHEP
 #from heppdt import HepPDT
 from gsl import GSL
-from xercesc import XercesC
+#from xercesc import XercesC
 #from heppdt import HepPDT
 from qt import QT
-from dcap import dcap
+#from dcap import dcap
 
 
 
 # external (without install support)
 from root import ROOT
-from geant4 import Geant4
+#from geant4 import Geant4
 from java import Java
 from mysql import MySQL
 from boost import Boost
 from eigen import Eigen
-from ninja import ninja
+#from ninja import ninja
 
-from gcc481 import GCC481
+#from gcc481 import GCC481
