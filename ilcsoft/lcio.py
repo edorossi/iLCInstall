@@ -2,9 +2,6 @@
 #
 # LCIO module
 #
-# Author: Jan Engels, DESY
-# Date: Jan, 2007
-#
 ##################################################
                                                                                                                                                             
 # custom imports
@@ -14,29 +11,24 @@ from util import *
 
 class LCIO(BaseILC):
     """ Responsible for the LCIO software installation process. """
+
     
     def __init__(self, userInput):
         BaseILC.__init__(self, userInput, "LCIO", "lcio")
         
         self.reqfiles = [ ["lib/liblcio.a", "lib/liblcio.so", "lib/liblcio.dylib"] ]
         
-        # optional modules
-        #self.optmodules = [ "dcap", "ROOT" ]
         self.optmodules = [ "ROOT" ]
 
         # supported download types
-        #self.download.supportedTypes = ["svn"]
         self.download.supportedTypes = [ "GitHub" ] 
         self.download.gituser = 'eutelescope'
         self.download.gitrepo = 'LCIO'
-
 
         self.envcmake["INSTALL_JAR"]="OFF"
 
 
     def compile(self):
-        """ compile LCIO """
-        
         os.chdir( self.installPath+'/build' )
         
         if self.rebuild:
@@ -52,8 +44,7 @@ class LCIO(BaseILC):
             self.abort( "failed to install!!" )
 
         # execute ctests
-        if( self.makeTests ):
-            
+        if( self.makeTests ):          
             if( os.system( "make tests && make test" ) != 0 ):
                 self.abort( "failed to execute lcio tests" )
 
@@ -75,31 +66,23 @@ class LCIO(BaseILC):
         BaseILC.preCheckDeps(self)
        
         if( self.mode == "install" ):
-
             # tests
             if( self.makeTests ):
                 self.envcmake.setdefault("BUILD_LCIO_EXAMPLES","ON")
                 self.envcmake.setdefault("BUILD_F77_TESTJOBS","ON")
-                
+              
         # check if java's required
         if ( self.cmakeBoolOptionIsSet( "LCIO_GENERATE_HEADERS" ) or self.cmakeBoolOptionIsSet( "INSTALL_JAR" ) ):
             self.addExternalDependency( ["Java"] )
-
-            #if self.cmakeBoolOptionIsSet( "BUILD_WITH_DCAP" ):
-            #    self.addDependency( ['dcap'] )
-            #    self.envcmake["DCAP_HOME"]=self.parent.module("dcap").installPath
                 
 
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)
-
         self.env["LCIO"] = self.installPath
-
         # PATH
         self.envpath["PATH"].append( "$LCIO/tools" )
         if self.installPath != "/usr":
-            self.envpath["PATH"].append( "$LCIO/bin" )
+            self.envpath["PATH" ].append( "$LCIO/bin" )
             self.envpath["LD_LIBRARY_PATH"].append( "$LCIO/lib" )
         self.envpath["PYTHONPATH"].append( "$LCIO/python" )
         self.envpath["PYTHONPATH"].append( "$LCIO/python/examples" )
-

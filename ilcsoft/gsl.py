@@ -2,9 +2,6 @@
 #
 # GSL module
 #
-# Author: Jan Engels, DESY
-# Date: Jan, 2007
-#
 ##################################################
                                                                                                                                                             
 # custom imports
@@ -18,28 +15,22 @@ class GSL(BaseILC):
     def __init__(self, userInput):
         BaseILC.__init__(self, userInput, "GSL", "gsl")
 
-        # no cmake build support
         self.hasCMakeBuildSupport = False
         
         self.download.supportHEAD = False
         self.download.supportedTypes = ["wget"]
 
-        self.reqfiles = [[
-                "lib/libgsl.a",
-                "lib/libgsl.so",
-                "lib64/libgsl.so",
-                "lib/libgsl.dylib",
-                "lib/shared/libgsl.so",
-                "lib64/shared/libgsl.so",
-                "lib/shared/libgsl.dylib",
-                "lib/x86_64-linux-gnu/libgsl.a",
-                "lib/x86_64-linux-gnu/libgsl.so"  
-        ]]
+        self.reqfiles = [ ["lib/libgsl.a", "lib/libgsl.so", "lib64/libgsl.so",
+                           "lib/libgsl.dylib", "lib/shared/libgsl.so", "lib64/shared/libgsl.so",
+                           "lib/shared/libgsl.dylib", "lib/x86_64-linux-gnu/libgsl.a",
+                           "lib/x86_64-linux-gnu/libgsl.so"] ]
     
+
     def setMode(self, mode):
         BaseILC.setMode(self, mode)
 
         self.download.url = "ftp://ftp.gnu.org/gnu/gsl/gsl-" + self.version + ".tar.gz"
+
         
     def downloadSources(self):
         BaseILC.downloadSources(self)
@@ -51,9 +42,8 @@ class GSL(BaseILC):
         # create build directory
         trymakedir( self.installPath + "/build" )
 
-    def compile(self):
-        """ compile GSL """
 
+    def compile(self):
         os.chdir( self.installPath + "/build" )
 
         if( self.rebuild ):
@@ -68,10 +58,12 @@ class GSL(BaseILC):
         if( os.system( "make install 2>&1 | tee -a " + self.logfile ) != 0 ):
             self.abort( "failed to install!!" )
 
+
     def cleanupInstall(self):
         BaseILC.cleanupInstall(self)
         os.chdir( self.installPath + "/build" )
         os.system( "make clean" )
+
 
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)

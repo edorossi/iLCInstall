@@ -2,9 +2,6 @@
 #
 # MySQL module
 #
-# Author: Jan Engels, DESY
-# Date: Jan, 2007
-#
 ##################################################
                                                                                                                                                             
 # custom imports
@@ -21,12 +18,10 @@ class MySQL(BaseILC):
         self.installSupport = False
         self.hasCMakeBuildSupport = False
 
-        self.reqfiles = [
-            ["lib/mysql/libmysqlclient.so", "lib/libmysqlclient.so", 
-             "lib/x86_64-linux-gnu/libmysqlclient.so",
-                "lib64/mysql/libmysqlclient.so", "lib64/libmysqlclient.so",
-                "lib/mysql/libmysqlclient.dylib", "lib/libmysqlclient.dylib"]
-        ]
+        self.reqfiles = [ ["lib/mysql/libmysqlclient.so", "lib/libmysqlclient.so", 
+                           "lib/x86_64-linux-gnu/libmysqlclient.so",
+                           "lib64/mysql/libmysqlclient.so", "lib64/libmysqlclient.so",
+                           "lib/mysql/libmysqlclient.dylib", "lib/libmysqlclient.dylib"] ]
 
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)
@@ -45,4 +40,3 @@ class MySQL(BaseILC):
             self.envpath["LD_LIBRARY_PATH"].append( "$MYSQL_HOME/lib" )
         self.envpath["LD_LIBRARY_PATH"].append( "$MYSQL_HOME/lib64/mysql" )
         self.envpath["LD_LIBRARY_PATH"].append( "$MYSQL_HOME/lib/mysql" )
-

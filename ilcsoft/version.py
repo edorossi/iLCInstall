@@ -1,7 +1,7 @@
 ##################################################
+#
 # Version class
-# Author: Jan Engels, DESY
-# Date: Jun, 2008
+#
 ##################################################
 
 import os
@@ -16,7 +16,6 @@ class Version:
         internally creates a tuple with the version from
         a string (or a sequence) passed to the constructor
         which is then used for comparisons.
-
 
 
         examples of valid versions and their
@@ -74,8 +73,8 @@ class Version:
     # regular expression for extracting all digits in a string
     _re_any_digit = re.compile( '(\d+)' )
 
-    def __init__(self, arg, max_elements=None, strict=False):
 
+    def __init__(self, arg, max_elements=None, strict=False):
         # store a list of all versions in a list (including this object itself!)
         self.versions = [self]
 
@@ -140,6 +139,7 @@ class Version:
 
         self._cmpver, self._repver, self._strver = self._validate( arg, max_elements )
 
+
     def _validate(self, arg, max_elements=None):
         """ returns a valid version tuple according to following criterias:
                 - argument must be a sequence
@@ -192,32 +192,30 @@ class Version:
 
         return (tuple(cmpver),tuple(repver), strver)
 
+
     def __getitem__(self, n):
         return self._repver[n]
+
 
     def __getslice__(self, i, j):
         i = max(i, 0); j = max(j, 0)
         return self._repver[i:j]
 
+
     def __len__(self):
         return len(self._repver)
+
 
     def __repr__(self):
         return repr(self._strver)
 
+
     def __str__(self):
         return self._strver
 
-    def __cmp__(self, other):
-        #print 'cmp - self:', self, 'other:', other
-        #if other:
-        #    if isinstance( other, self.__class__ ):
-        #        return cmp(self._cmpver, other._cmpver )
-        #    #print 'cmp - converting other:', other
-        #    return cmp(self._cmpver, self.__class__(other)._cmpver)
 
+    def __cmp__(self, other):
         if other:
-            #print 'cmp - converting other:', other
             return cmp(self._cmpver, self.__class__(other)._cmpver)
 
         return cmp(self._cmpver, other)
@@ -237,6 +235,3 @@ if __name__ == '__main__':
         c1=Version( getoutput( ilcHome+'CMake/2.4.6/bin/cmake --version' ).replace('patch ',''))
         q1=Version( getoutput( 'qmake -v' ), strict=True)
         q2=Version( getoutput( ilcHome+'QT/4.2.2/bin/qmake -v' ))
-        #j1=Version( getoutput( ilcHome+'java/1.5.0/bin/java -version' ))
-        #j2=Version( getoutput( ilcHome+'java/1.5.0/bin/java -version' ), max_elements=3, strict=True)
-

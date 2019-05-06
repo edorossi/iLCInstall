@@ -2,9 +2,6 @@
 #
 # QT module
 #
-# Author: Jan Engels, DESY
-# Date: Jan, 2007
-#
 ##################################################
                                                                                                                                                             
 # custom imports
@@ -23,16 +20,18 @@ class QT(BaseILC):
         self.download.supportHEAD = False
         self.download.supportedTypes = ["wget"]
 
-        self.reqfiles = [
-            ["lib/libQtCore.so", "lib64/libQtCore.so", "lib/libQtCore.dylib", "lib/QtCore.la", \
-                "lib/qt-3.1/lib/libqt.so", "lib/qt-3.3/lib/libqt-mt.so"],
-            ["lib/libQtGui.so", "lib64/libQtGui.so", "lib/libQtGui.dylib", "lib/QtGui.la", \
-                "lib/qt-3.1/lib/libqui.so", "lib/qt-3.3/lib/libqui.so"],
-            ["bin/qmake"] ]
+        self.reqfiles = [ ["lib/libQtCore.so", "lib64/libQtCore.so",
+                           "lib/libQtCore.dylib", "lib/QtCore.la",
+                           "lib/qt-3.1/lib/libqt.so", "lib/qt-3.3/lib/libqt-mt.so"],
+                          ["lib/libQtGui.so", "lib64/libQtGui.so",
+                           "lib/libQtGui.dylib", "lib/QtGui.la",
+                           "lib/qt-3.1/lib/libqui.so", "lib/qt-3.3/lib/libqui.so"],
+                          ["bin/qmake"] ]
 
         if( userInput=="auto" ):
             self.autoDetect()
     
+
     def autoDetectPath(self):
         """ tries to auto detect qt dir from system settings.
             - returns empty string in case of failure
@@ -50,6 +49,7 @@ class QT(BaseILC):
 
         # nothing was found
         return ''
+
         
     def autoDetectVersion(self):
         """ tries to auto detect version by parsing the output of qmake -v.
@@ -76,16 +76,12 @@ class QT(BaseILC):
         else:
             self.download.url = "http://download.qt-project.org/archive/qt/%s/qt-everywhere-opensource-src-%s.tar.gz" % (self.version[:3], self.version,)
 
-    def compile(self):
-        """ compile QT """
 
+    def compile(self):
         os.chdir( self.installPath )
 
         if( self.rebuild ):
             os.system( "make distclean" )
-
-#        qt_cfg_options = " -prefix-install -fast -make libs -no-separate-debug-info -no-xkb -no-xinerama -no-qt3support"
-#fg: enable qt3-support (on request from Klaus)       
         qt_cfg_options = " -prefix-install -fast -make libs -no-separate-debug-info -no-xkb -no-xinerama"
         
         if( Version( self.version ) < '4.5' ):
@@ -105,11 +101,13 @@ class QT(BaseILC):
 
         if( os.system( "make ${MAKEOPTS} 2>&1 | tee -a " + self.logfile ) != 0 ):
             self.abort( "failed to compile!!" )
+
     
     def cleanupInstall(self):
         BaseILC.cleanupInstall(self)
         os.chdir( self.installPath )
         os.system( "make clean" )
+
 
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)

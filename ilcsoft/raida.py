@@ -2,9 +2,6 @@
 #
 # RAIDA module
 #
-# Author: Jan Engels, DESY
-# Date: Jan, 2007
-#
 ##################################################
 
 # custom imports
@@ -23,17 +20,12 @@ class RAIDA(BaseILC):
         # ROOT is required for building RAIDA
         self.reqmodules = [ "ROOT" ]
 
-        # cvs root
-        #self.download.root = "ilctools"
-
         self.download.supportedTypes = [ "GitHub" ] 
         self.download.gituser = 'iLCSoft'
         self.download.gitrepo = 'RAIDA'
 
 
     def compile(self):
-        """ compile RAIDA """
-        
         os.chdir( self.installPath + "/build")
 
         if( self.rebuild ):
@@ -48,6 +40,7 @@ class RAIDA(BaseILC):
 
         if( os.system( "make install 2>&1 | tee -a " + self.logfile ) != 0 ):
             self.abort( "failed to install!!" )
+
         
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)

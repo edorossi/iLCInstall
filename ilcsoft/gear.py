@@ -2,9 +2,6 @@
 #
 # GEAR module
 #
-# Author: Jan Engels, DESY
-# Date: Jan, 2007
-#
 ##################################################
                                                                                                                                                             
 # custom imports
@@ -18,18 +15,14 @@ class GEAR(BaseILC):
     def __init__(self, userInput):
         BaseILC.__init__(self, userInput, "GEAR", "gear")
 
-
         self.optmodules = [ "ROOT" ]
         self.reqmodules = [ "CLHEP" ]
 
-        self.reqfiles = [
-                ["lib/libgear.a", "lib/libgear.so", "lib/libgear.dylib"],
-                ["lib/libgearxml.a", "lib/libgearxml.so", "lib/libgearxml.dylib"]
-        ]
+        self.reqfiles = [ ["lib/libgear.a", "lib/libgear.so", "lib/libgear.dylib"],
+                          ["lib/libgearxml.a", "lib/libgearxml.so", "lib/libgearxml.dylib"] ]
+
 
     def compile(self):
-        """ compile GEAR """
-        
         os.chdir( self.installPath+'/build' )
 
         if( self.rebuild ):
@@ -56,12 +49,11 @@ class GEAR(BaseILC):
         if Version( self.version ) < '0.14':
             self.addExternalDependency( ["Java"] )
 
+
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)
 
         self.env["GEAR"] = self.installPath
-
-        # PATH
         self.envpath["PATH"].append( "$GEAR/tools" )
         self.envpath["PATH"].append( "$GEAR/bin" )
         self.envpath["LD_LIBRARY_PATH"].append( "$GEAR/lib" )

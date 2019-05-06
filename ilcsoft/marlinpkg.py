@@ -2,14 +2,12 @@
 #
 # MarlinPKG module
 #
-# Author: Jan Engels, DESY
-# Date: Jan, 2007
-#
 ##################################################
                                                                                                                                                             
 # custom imports
 from baseilc import BaseILC
 from util import *
+
 
 class ConfigPKG(BaseILC):
     """ Responsible for Configuration Packages installation,
@@ -23,6 +21,7 @@ class ConfigPKG(BaseILC):
         self.hasCMakeFindSupport = False
         self.skipCompile = True
 
+
 class MarlinPKG(BaseILC):
     """ Responsible for Marlin Packages installation process. """
     
@@ -32,10 +31,9 @@ class MarlinPKG(BaseILC):
         self.reqmodules=[ 'LCIO', 'Marlin' ]
 
         self.download.gitrepo = name
+
         
     def compile(self):
-        """ compile MarlinPKG """
-        
         os.chdir( self.installPath + "/build" )
 
         if( self.rebuild ):
@@ -52,6 +50,7 @@ class MarlinPKG(BaseILC):
         if( os.system( "make install" ) != 0 ):
             self.abort( "failed to install!!" )
 
+
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)
 
@@ -59,4 +58,3 @@ class MarlinPKG(BaseILC):
         if( self.name != "MarlinUtil" and self.name != "PandoraPFANew" ):
             self.parent.module('Marlin').envpath["MARLIN_DLL"].append( 
                 self.installPath+"/lib/lib"+self.name+self.shlib_ext )
-

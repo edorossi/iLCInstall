@@ -18,18 +18,15 @@ class ILCUTIL(BaseILC):
     def __init__(self, userInput):
         BaseILC.__init__(self, userInput, "ILCUTIL", "ilcutil")
 
-        self.reqfiles = [
-            [ "ILCSOFT_CMAKE_MODULESConfig.cmake" ],
-            [ "lib/libstreamlog.a", "lib/libstreamlog.so", "lib/libstreamlog.dylib"]
-        ]
+        self.reqfiles = [ [ "ILCSOFT_CMAKE_MODULESConfig.cmake" ],
+                          [ "lib/libstreamlog.a", "lib/libstreamlog.so", "lib/libstreamlog.dylib"] ]
 
         self.download.supportedTypes = [ "GitHub" ] 
         self.download.gituser = 'eutelescope'
         self.download.gitrepo = 'iLCUtil'
 
+
     def compile(self):
-        """ compile ilcutil """
-        
         os.chdir( self.installPath+'/build' )
 
         if( self.rebuild ):
@@ -48,7 +45,5 @@ class ILCUTIL(BaseILC):
         BaseILC.postCheckDeps(self)
 
         self.env["ilcutil"] = self.installPath
-
-        # PATH
         self.envpath["LD_LIBRARY_PATH"].append( "$ilcutil/lib" )
 

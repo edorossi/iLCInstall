@@ -20,11 +20,9 @@ class ROOT(BaseILC):
 
         self.download.supportedTypes = [ "wget", "svn-export", "svn" ]
 
-        self.reqfiles = [
-                ["lib/libCore.so", "lib64/libCore.so", "lib/libCore.dylib"], 
-                ["lib/libPhysics.so", "lib64/libPhysics.so", "lib/libPhysics.dylib"],
-                ["bin/root-config"]
-        ]
+        self.reqfiles = [ ["lib/libCore.so", "lib64/libCore.so", "lib/libCore.dylib"], 
+                          ["lib/libPhysics.so", "lib64/libPhysics.so", "lib/libPhysics.dylib"],
+                          ["bin/root-config"] ]
 
         self.reqmodules_external = [ "GSL" ]
 
@@ -59,8 +57,6 @@ class ROOT(BaseILC):
 
 
     def compile(self):
-        """ compile root """
-
         gsl = self.parent.module("GSL")
         gsl_bindir = gsl.installPath + "/bin"
         gsl_libdir = gsl.installPath + "/lib"

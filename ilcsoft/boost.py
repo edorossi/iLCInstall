@@ -1,11 +1,6 @@
 ##################################################
 #
 # Boost module
-# needs boost to be installed on the system
-# just checks if header files are there
-#
-# Author: F.Gaede, DESY/CERN
-# Date: May 2015
 #
 ##################################################
                                                                                                                                                             
@@ -23,9 +18,8 @@ class Boost(BaseILC):
         self.installSupport = False
         self.hasCMakeBuildSupport = False
 
-        self.reqfiles = [
-            ["include/boost/version.hpp", "include/boost/spirit.hpp", "boost/version.hpp", "boost/spirit.hpp"]
-        ]
+        self.reqfiles = [ ["include/boost/version.hpp", "include/boost/spirit.hpp",
+                           "boost/version.hpp", "boost/spirit.hpp"] ]
 
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)

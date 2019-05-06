@@ -1,9 +1,6 @@
 ##################################################
 #
-# Utilities
-#
-# Author: Frank Gaede, DESY
-# Date: Jan, 2007
+# Utilities class
 #
 ##################################################
 
@@ -21,7 +18,6 @@ import re
 import fnmatch
 import platform
 
-#--------------------------------------------------------------------------------
 
 class OSDetect(object):
     """ small class for detecting the OS """
@@ -32,15 +28,12 @@ class OSDetect(object):
     arch = "unknown" # composed of gcc ver + architecture, e.g.: 'gcc34_32bit'
 
     def __init__(self):
-
         # Linux
         if( sys.platform == "linux2" ):
             self.type = "Linux"
- 
         # MacOs
         if( sys.platform == "mac" or sys.platform == "darwin" ):
             self.type = "Darwin"
-        
         # Windows
         if( sys.platform == "win32" ):
             self.type = "Win"
@@ -54,7 +47,6 @@ class OSDetect(object):
             out=getstatusoutput("uname -i")
             if( out[0] == 0 ):
                 self.platform=out[1].strip()
-
 
         try:
             sizeofint = platform.architecture()[0]
@@ -72,23 +64,29 @@ class OSDetect(object):
             return self.ver
         return self.type
 
+
     shortver = property( _get_shortver )
+
 
     def __repr__(self):
         return repr( self.type )
 
+
     def __str__(self):
         return str(self.type+" - "+self.ver)
+
         
     # left here for compatibility, use isSL(3) instead
     def isSL3(self):
         """ returns True if this is Scientific Linux 3 """
         return self.isSL(3)
+
         
     # left here for compatibility, use isSL(4) instead
     def isSL4(self):
         """ returns True if this is Scientific Linux 4 """
         return self.isSL(4)
+
 
     def isSL(self, x=None):
         """ if x is given: returns True if os == Scientific Linux x
@@ -112,6 +110,7 @@ class GlobDirectoryWalker:
         self.pattern = pattern 
         self.files = []
         self.index = 0
+
 
     def __getitem__(self, index):
         while 1:
@@ -260,4 +259,3 @@ def ask_ok( prompt, retries=3, complaint="[y/n] , please !" ):
         print complaint
 
 #--------------------------------------------------------------------------------
-

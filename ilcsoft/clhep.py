@@ -2,9 +2,6 @@
 #
 # CLHEP module
 #
-# Author: Jan Engels, DESY
-# Date: Jan, 2007
-#
 ##################################################
                                                                                                                                                             
 # custom imports
@@ -18,10 +15,10 @@ class CLHEP(BaseILC):
     def __init__(self, userInput):
         BaseILC.__init__(self, userInput, "CLHEP", "CLHEP")
 
+        self.reqfiles = [ ["lib/libCLHEP.a", "lib/libCLHEP.so", "lib64/libCLHEP.so", "lib/libCLHEP.dylib"] ]
+
         self.download.supportHEAD = False
         self.download.supportedTypes = ["wget"]
-
-        self.reqfiles = [ ["lib/libCLHEP.a", "lib/libCLHEP.so", "lib64/libCLHEP.so", "lib/libCLHEP.dylib"] ]
         
 			
     def setMode(self, mode):
@@ -47,10 +44,10 @@ class CLHEP(BaseILC):
 
     def downloadSources(self):
         BaseILC.downloadSources(self)
+
 	
     def compile(self):
         """ compile CLHEP """
-
 	     	
         trymakedir( self.buildPath )
         os.chdir( self.buildPath )
@@ -64,7 +61,6 @@ class CLHEP(BaseILC):
                  tryunlink( "CMakeCache.txt" )
 				
             # build software
-            #fg: new clhep source is in extra subdirectory CLHEP ; default INSTALL_PREFIX is /usr/ 
             if( os.system( self.genCMakeCmd() + "/CLHEP -DCMAKE_INSTALL_PREFIX=" + self.installPath + " 2>&1 | tee -a " + self.logfile ) != 0 ):
                 self.abort( "failed to configure!!" )
         
@@ -79,6 +75,7 @@ class CLHEP(BaseILC):
         BaseILC.cleanupInstall(self)
         os.chdir( self.buildPath ) 
         os.system( "make clean" )
+
 
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)

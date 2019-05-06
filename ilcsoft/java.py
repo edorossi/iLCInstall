@@ -2,9 +2,6 @@
 #
 # Java module
 #
-# Author: Jan Engels, DESY
-# Date: Jan, 2007
-#
 ##################################################
 
 # custom imports
@@ -52,7 +49,8 @@ class Java(BaseILC):
         
         # nothing was found
         return ''
-        
+ 
+       
     def autoDetectVersion(self):
         """ tries to auto detect version by parsing the output of java -version.
             - returns empty string in case of failure
@@ -65,6 +63,7 @@ class Java(BaseILC):
             return ''
         else:
             return str(v)
+
 
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)

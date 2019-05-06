@@ -1,9 +1,6 @@
 ##################################################
 #
-# GBL module for general broken lines
-#
-# Author: Ch. Rosemann, DESY -- based on work by Jan Engels
-# Date: Mar, 2013
+# GBL module
 #
 ##################################################
 
@@ -22,9 +19,8 @@ class GBL(BaseILC):
 
         self.reqmodules = [ "ROOT" ]
 
+
     def compile(self):
-        """ compile GBL """
-        
         os.chdir( self.installPath+'/build' )
 
         if( self.rebuild ):
@@ -39,12 +35,14 @@ class GBL(BaseILC):
         if( os.system( "make install 2>&1 | tee -a " + self.logfile ) != 0 ):
             self.abort( "failed to install!!" )
 
+
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)
 
         self.env["GBL"] = self.installPath
 
         self.envpath["LD_LIBRARY_PATH"].append( '$GBL/lib' )
+
 
     def setMode(self, mode):
         BaseILC.setMode(self, mode)

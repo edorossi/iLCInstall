@@ -2,9 +2,6 @@
 #
 # Marlin module
 #
-# Author: Jan Engels, DESY
-# Date: Jan, 2007
-#
 ##################################################
 
 # custom imports
@@ -14,6 +11,7 @@ from util import *
 
 class Marlin(BaseILC):
     """ Responsible for the Marlin software installation process. """
+
     
     def __init__(self, userInput):
         BaseILC.__init__(self, userInput, "Marlin", "Marlin")
@@ -24,19 +22,15 @@ class Marlin(BaseILC):
 
         self.reqfiles = [ ["lib/libMarlin.a", "lib/libMarlin.so", "lib/libMarlin.dylib"], ["bin/Marlin"] ]
 
-        # LCIO is required for building Marlin
         self.reqmodules = [ "LCIO", "GEAR" ]
 
-        # optional modules
         self.optmodules = [ "CLHEP", "LCCD" , "AIDA" ]
 
-        self.envcmake['MARLIN_GUI']='OFF'
+        self.envcmake['MARLIN_GUI'] = 'OFF'
+
     
     def compile(self):
-        """ compile Marlin """
-        
         os.chdir( self.installPath )
-
         os.chdir( "build" )
 
         if( self.rebuild ):
@@ -66,6 +60,7 @@ class Marlin(BaseILC):
                 if( sys.platform != "mac" and sys.platform != "darwin" ):
                     self.addExternalDependency( ["QT"] )
                 self.reqfiles.append(["bin/MarlinGUI"])
+
     
     def postCheckDeps(self):
         BaseILC.postCheckDeps(self)
@@ -79,4 +74,3 @@ class Marlin(BaseILC):
                 qt = self.parent.module("QT")
                 if( qt != None and Version( qt.version ) < '4.0' ):
                     self.abort( "you need QT 4!! QT version " + qt.version + " found..." )
-
