@@ -33,11 +33,8 @@ from cmake import CMake
 # external (with install support)
 from clhep import CLHEP
 from gsl import GSL
-from qt import QT
 
 # external (without install support)
 from root import ROOT
 from java import Java
-from mysql import MySQL
-from boost import Boost
 from eigen import Eigen

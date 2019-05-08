@@ -7,7 +7,7 @@
 # custom imports
 from util import *
 from java import Java
-from qt import QT
+#from qt import QT
 from cmake import CMake
 import commands
 
@@ -172,10 +172,10 @@ class ILCSoft:
             auto_java = Java()
             if( auto_java.autoDetected ):
                 self.autoModules.append( auto_java )
-        if( self.module( "QT" ) == None ):
-            auto_qt = QT()
-            if( auto_qt.autoDetected ):
-                self.autoModules.append( auto_qt )
+        #if( self.module( "QT" ) == None ):
+        #    auto_qt = QT()
+        #    if( auto_qt.autoDetected ):
+        #        self.autoModules.append( auto_qt )
         if( self.module( "CMake" ) == None ):
             auto_cmake = CMake()
             if( auto_cmake.autoDetected ):
