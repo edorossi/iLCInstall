@@ -1,3 +1,6 @@
+
+BE CAREFUL, STILL PRE-RELEASE VERSION!!!
+
 # iLCInstall
 
 Installation script that enable a fully automated installation of EUTelescope and its dependencies, based on the installation of iLCSoft.
