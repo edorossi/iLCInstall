@@ -44,7 +44,7 @@ GEAR_version = "v01-06-eutel-pre"
 
 GBL_version = "V02-01-03"
 
-Millepede2_version = 'tags/V04-05-00'
+Millepede2_version = 'tags/V05-05-01'
 
 Eudaq_version = "tags/v1.8.1"
 
