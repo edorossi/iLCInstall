@@ -32,7 +32,54 @@ If called without options a summary of the installation is displayed. Examples o
 * apt-get install build-essential cmake subversion libmysqlclient-dev freeglut3-dev zlib1g-dev libqt4-dev cernlib-core-dev 
 * default-jdk libxpm-dev libxmu-dev lesstif2-dev doxygen latex2html
 
-STEPS TO FOLLOW...
+
+### DESY NAF (standalone version)
+
+1. Login to NAF.
+2. Enable the right compilers, modern git version and environments:
+```
+scl enable devtoolset-4 rh-git29 bash
+```
+3. Choose installation location (e.g. on dust) and define path using the ILCSOFT environment variable: 
+```
+export ILCSOFT=/nfs/dust/GROUP/user/USER/NAME
+mkdir -p $ILCSOFT
+```
+4. Get iLCInstall code:
+```
+cd $ILCSOFT
+git clone https://github.com/eutelescope/ilcinstall
+```
+5. Run the installation using the appropiate installation configuration (here: ```release/release-desynaf-standalone.cfg```):
+```
+cd ilcinstall
+./ilcsoft-install -i releases/release-desynaf-standalone.cfg
+```
+
+### DESY NAF (cvmfs version)
+
+1. Login to NAF.
+2. Enable the modern git version for bash and source ROOT-enviroment from CVMFS:
+```
+scl enable rh-git29 bash
+source /cvmfs/sft.cern.ch/lcg/releases/LCG_95/ROOT/6.16.00/x86_64-slc6-gcc62-opt/ROOT-env.sh
+```
+3. Choose installation location (e.g. on dust) and define path using the ILCSOFT environment variable:
+```
+export ILCSOFT=/nfs/dust/GROUP/user/USER/NAME
+mkdir -p $ILCSOFT
+```
+4. Get iLCInstall code:
+```
+cd $ILCSOFT
+git clone https://github.com/eutelescope/ilcinstall
+```
+5. Run the installation	using the appropiate installation configuration	(here: ```release/release-desynaf-cvmfs.cfg```):
+```
+cd ilcinstall
+./ilcsoft-install -i releases/release-desynaf-cvmfs.cfg
+```
+
 
 
 ## License and Copyright
