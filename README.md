@@ -48,7 +48,7 @@ mkdir -p $ILCSOFT
 4. Get iLCInstall code:
 ```
 cd $ILCSOFT
-git clone https://github.com/eutelescope/ilcinstall
+git clone -b master https://github.com/eutelescope/ilcinstall
 ```
 5. Run the installation using the appropiate installation configuration (here: ```release/release-desynaf-standalone.cfg```):
 ```
@@ -72,7 +72,7 @@ mkdir -p $ILCSOFT
 4. Get iLCInstall code:
 ```
 cd $ILCSOFT
-git clone https://github.com/eutelescope/ilcinstall
+git clone -b master https://github.com/eutelescope/ilcinstall
 ```
 5. Run the installation	using the appropiate installation configuration	(here: ```release/release-desynaf-cvmfs.cfg```):
 ```
